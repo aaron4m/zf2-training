@@ -1,0 +1,23 @@
+<h1>News <a href="/news/add" class="btn btn-success"><em class="icon-plus icon-white"></em> Add new Article</a></h1>
+
+<?php if (count($articles) == 0):?>
+    <div class="row">
+        <div class="span8 well">
+        There are no news articles
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php foreach ($this->articles as $article):?>
+<div class="row">
+    <div class="span8 well">
+        <div class="pull-right">
+        <a href="/news/edit/<?=$article->getNewsId();?>" class="label label-warning"><em class="icon-pencil icon-white"></em></a>
+        <a href="/news/delete/<?=$article->getNewsId();?>" class="label label-important"><em class="icon-trash icon-white"></em></a>
+        </div>
+        <strong><?=$article->getTitle();?></strong>
+        <div class="content"><?=$article->getContent();?></div><br/>
+        <span class="label">Posted by <?=$article->getAuthor();?></span>
+    </div>
+</div>
+<?php endforeach;?>

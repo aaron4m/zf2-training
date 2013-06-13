@@ -1,0 +1,16 @@
+<h1>Edit Article (<?=$article->getNewsId();?>)</h1>
+
+<form method="POST">
+    <div class="controls controls-row">
+        <input name="title" class="span6" type="text" placeholder="Title" value="<?=$article->getTitle();?>">
+        <input name="author" class="span2" type="text" placeholder="Author" value="<?=$article->getAuthor();?>">
+    </div>
+    <div class="controls controls-row">
+        <textarea name="content" class="span8" placeholder="Content" rows="10"><?=$article->getContent();?></textarea>
+    </div>
+    <div class="controls controls-row">
+        <input type="hidden" name="newsId" value="<?=$article->getNewsId();?>">
+        <a class="btn" href="/news"><em class="icon-chevron-left"></em> Cancel</a>
+        <button class="btn btn-success"><em class="icon-plus icon-white"></em> Save</button>
+    </div>
+</form>
