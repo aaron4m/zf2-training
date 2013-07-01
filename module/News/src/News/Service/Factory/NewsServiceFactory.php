@@ -7,18 +7,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use News\Service\News as Service;
 use News\Mapper\News as Mapper;
 
-/**
- * Class CategoryServiceFactory
- *
- * @package Admin\Service\Factory
- */
 class NewsServiceFactory implements FactoryInterface
 {
-    /**
-     * Create Service Factory
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return Category
-     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $mapper = new Mapper;
