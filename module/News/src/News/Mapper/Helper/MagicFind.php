@@ -5,7 +5,21 @@ use ZfcBase\Mapper\AbstractDbMapper;
 
 class MagicFind extends AbstractDbMapper
 {
-    function find($name, $arguments)
+    protected $tableName;
+
+    public function __construct($parentObject, $name = null, $arguments = null)
+    {
+        $this->tableName = $parentObject->getTableName();
+
+        $this->setDbAdapter($parentObject->getDbAdapter());
+        $this->setEntityPrototype($parentObject->getEntityPrototype());
+
+        if (!is_null($name) && !is_null($arguments)) {
+            return $this->find($name, $arguments);
+        }
+    }
+
+    public function find($name, $arguments)
     {
         $findAll = strpos($name, 'findAll');
 
@@ -13,15 +27,15 @@ class MagicFind extends AbstractDbMapper
             throw new Exception('Invalid method ' . $name);
         }
 
-        if (!$findAll === false) {
+        if ($findAll === false) {
             $fields = explode('And', (substr($name, 0, 6) == 'findBy') ? substr($name, 6) : substr($name, 9));
         } else {
             $fields = array();
         }
 
-        $contain = true;
         $columns = array('*');
         $order = $limit = $offset = null;
+        $debug = false;
 
         if ($findAll === false && is_array($arguments[count($arguments) - 1]) && (count($arguments) != count($fields))) {
             $options = array_pop($arguments);
@@ -29,14 +43,14 @@ class MagicFind extends AbstractDbMapper
             $order = (isset($options['order'])) ? $options['order'] : $order;
             $limit = (isset($options['limit'])) ? $options['limit'] : $limit;
             $offset = (isset($options['offset'])) ? $options['offset'] : $offset;
-            $debug = (isset($options['detoArraybug'])) ? $options['debug'] : $debug;
+            $debug = (isset($options['debug'])) ? $options['debug'] : $debug;
         }
 
         if (count($arguments) != count($fields)) {
             throw new Exception('Argument count does not match field count');
         }
 
-        $select = $this->getSelect()
+        $select = self::getSelect()
             ->columns($columns);
 
         if (!is_null($order)) {
@@ -76,6 +90,10 @@ class MagicFind extends AbstractDbMapper
 
         if ($limit) {
             $select->limit($limit, $offset);
+        }
+
+        if ($debug) {
+            echo @$select->getSqlString(); die();
         }
 
         return $this->select($select);

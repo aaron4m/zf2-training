@@ -9,7 +9,7 @@ class NewsController extends AbstractActionController
     public function indexAction()
     {
         $service = $this->getServiceLocator()->get('News\Service\News');
-        $articles = $service->getMapper()->findAll();
+        $articles = $service->getMapper()->findByNewsId(15);
 
         return new ViewModel(
             array(

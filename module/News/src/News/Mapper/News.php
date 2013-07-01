@@ -10,7 +10,8 @@ class News extends AbstractDbMapper
 
     public function __call($name, $arguments)
     {
-        return MagicFind::find($name, $arguments);
+        $magicFind = new MagicFind($this);
+        return $magicFind->find($name, $arguments, $this);
     }
 
     public function insert($entity)
