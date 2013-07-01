@@ -24,7 +24,6 @@ class News extends AbstractDbMapper
     public function update($entity)
     {
         $result = parent::update($entity, array('newsId'=>$entity->getNewsId()));
-        $entity->setNewsId($result->getGeneratedValue());
         return $result;
     }
 
