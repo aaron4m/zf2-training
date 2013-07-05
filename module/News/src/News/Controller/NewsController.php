@@ -9,7 +9,12 @@ class NewsController extends AbstractActionController
     public function indexAction()
     {
         $service = $this->getServiceLocator()->get('News\Service\News');
-        $articles = $service->getMapper()->findByNewsId(15);
+        $articles = $service->getMapper()->findAll();
+
+        /* Session Example
+        $session = $this->getServiceLocator()->get('SessionManager');
+        $session->test = 'dog';
+        */
 
         return new ViewModel(
             array(

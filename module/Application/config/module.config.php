@@ -60,6 +60,32 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+            'Zend\Db\Adapter\Adapter' => function ($sm) {
+                $config = $sm->get('config');
+                return new Zend\Db\Adapter\Adapter(array(
+                    'driver'    => 'pdo',
+                    'dsn'       => 'mysql:dbname='.$config['database'].';host='.$config['hostname'],
+                    'database'  => $config['database'],
+                    'username'  => $config['username'],
+                    'password'  => $config['password'],
+                    'hostname'  => $config['hostname'],
+                ));
+            },
+            'SessionManager' => function ($sm) {
+                $config = $sm->get('Configuration');
+
+                $sessionConfig = new Zend\Session\Config\SessionConfig;
+                $sessionConfig->setOptions($config['session']);
+
+                $sessionManager = new Zend\Session\SessionManager($sessionConfig, null, null);
+
+                $session = new Zend\Session\Container('application');
+                $session->setDefaultManager($sessionManager);
+
+                return $session;
+            },
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',

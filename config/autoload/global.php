@@ -12,5 +12,14 @@
  */
 
 return array(
-
+    'service_manager' => array(
+        'invokables' => array(
+            'Zend\Session\SessionManager' => 'Zend\Session\SessionManager',
+        ),
+    ),
+    'session' => array(
+        'remember_me_seconds' => 5184000,
+        'use_cookies' => true,
+        'cookie_httponly' => true,
+    ),
 );
