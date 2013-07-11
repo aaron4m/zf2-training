@@ -13,7 +13,8 @@ CREATE TABLE `user` (
   `display_name` varchar(50) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `state` smallint(5) unsigned DEFAULT NULL,
+  `roles` ENUM('editor', 'admin') DEFAULT 'editor',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`)
+  UNIQUE KEY `email` (`email`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

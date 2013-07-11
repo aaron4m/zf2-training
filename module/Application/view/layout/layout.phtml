@@ -33,6 +33,11 @@
                         <ul class="nav">
                             <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
                             <li class="active"><a href="<?php echo $this->url('news') ?>"><?php echo $this->translate('News') ?></a></li>
+                            <?php if(!$this->zfcUserIdentity()): ?>
+                                <li class="active"><a href="<?php echo $this->url('login') ?>"><?php echo $this->translate('Login') ?></a></li>
+                            <?php else: ?>
+                                <li class="active"><a href="<?php echo $this->url('logout') ?>"><?php echo $this->translate('Logout') ?></a></li>
+                            <?php endif; ?>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
