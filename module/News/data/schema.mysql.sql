@@ -16,5 +16,5 @@ CREATE TABLE `user` (
   `roles` ENUM('editor', 'admin') DEFAULT 'editor',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
