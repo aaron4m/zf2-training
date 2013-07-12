@@ -40,7 +40,7 @@ $settings = array(
      *
      * Accepted values: boolean true or false
      */
-    //'enable_username' => true,
+    'enable_username' => true,
 
     /**     
      * Authentication Adapters
@@ -61,7 +61,6 @@ $settings = array(
      * Accepted values: boolean true or false
      */
     'enable_display_name' => true,
-    'enable_user_name' => true,
 
     /**
      * Modes for authentication identity match

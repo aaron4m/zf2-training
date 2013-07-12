@@ -6,16 +6,16 @@ use ZfcUser\Entity\User as ZfcUser;
 
 class User extends ZfcUser implements IdentityInterface
 {
-    protected $role;
+    protected $roles = 'editor';
 
-    public function setRoles($role)
+    public function setRoles($roles)
     {
-        $this->role = $role;
+        $this->roles = $roles;
         return $this;
     }
 
     public function getRoles()
     {
-        return $this->role;
+        return $this->roles;
     }
 }
