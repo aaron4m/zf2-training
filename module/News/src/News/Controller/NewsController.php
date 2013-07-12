@@ -41,7 +41,7 @@ class NewsController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
 
         $service = $this->getServiceLocator()->get('News\Service\News');
-        $article = $service->getMapper()->find($id);
+        $article = $service->getMapper()->findByNewsId($id);
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->params()->fromPost();

@@ -2,6 +2,7 @@
 namespace News\Mapper\Helper;
 
 use ZfcBase\Mapper\AbstractDbMapper;
+use Exception;
 
 class MagicFind extends AbstractDbMapper
 {
@@ -21,13 +22,14 @@ class MagicFind extends AbstractDbMapper
 
     public function find($name, $arguments)
     {
-        $findAll = strpos($name, 'findAll');
+        $testFindAll = strstr($name, 'findAll');
+        $findAll = ($testFindAll == 'findAll')?true:false;
 
         if (substr($name, 0, 6) != 'findBy' && substr($name, 0, 9) != 'findAllBy' && $findAll === false) {
             throw new Exception('Invalid method ' . $name);
         }
 
-        if ($findAll === false) {
+        if ($findAll == false) {
             $fields = explode('And', (substr($name, 0, 6) == 'findBy') ? substr($name, 6) : substr($name, 9));
         } else {
             $fields = array();
@@ -37,7 +39,7 @@ class MagicFind extends AbstractDbMapper
         $order = $limit = $offset = null;
         $debug = false;
 
-        if ($findAll === false && is_array($arguments[count($arguments) - 1]) && (count($arguments) != count($fields))) {
+        if ($findAll == false && is_array($arguments[count($arguments) - 1]) && (count($arguments) != count($fields))) {
             $options = array_pop($arguments);
             $columns = (isset($options['columns'])) ? $options['columns'] : $columns;
             $order = (isset($options['order'])) ? $options['order'] : $order;
@@ -57,7 +59,7 @@ class MagicFind extends AbstractDbMapper
             $select->order(($order == null) ? $primaryKey[1] . ' ASC' : $order);
         }
 
-        if ($findAll === false) {
+        if ($findAll == false) {
             foreach ($fields as $key => $field) {
                 if (substr($field, 0, 3) == 'Not') {
                     $field = substr($field, 3);
@@ -96,6 +98,12 @@ class MagicFind extends AbstractDbMapper
             echo @$select->getSqlString(); die();
         }
 
-        return $this->select($select);
+        $result = $this->select($select);
+        if (substr($name, 0, 6) == 'findBy') {
+            $arrayResult = iterator_to_array($result);
+            return $arrayResult[0];
+        }
+
+        return $result;
     }
 }
