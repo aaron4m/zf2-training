@@ -35,9 +35,10 @@ $settings = array(
     'firewalls' => array(
         'ZfcRbac\Firewall\Route' => array(
 
-            // Vendors
-            array('route' => 'DkcwdZf2Munee', 'roles' => 'guest'),
-            array('route' => 'StaticPages', 'roles' => 'approver'),
+            //News
+            array('route' => 'news/add', 'roles' => 'editor'),
+            array('route' => 'news/edit', 'roles' => 'editor'),
+            array('route' => 'news/delete', 'roles' => 'editor'),
 
             // ZfcUser
             array('route' => 'zfcuser/login', 'roles' => 'guest'),
