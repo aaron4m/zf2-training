@@ -4,7 +4,7 @@ CREATE TABLE `news` (
   `content` text,
   `author` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`newsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `user` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -13,6 +13,7 @@ CREATE TABLE `user` (
   `display_name` varchar(50) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `state` smallint(5) unsigned DEFAULT NULL,
+  `roles` ENUM('editor', 'admin') DEFAULT 'editor',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
